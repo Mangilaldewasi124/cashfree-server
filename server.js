@@ -52,7 +52,15 @@ async function createCashfreeOrder({ amount, order_id, customer }) {
     "x-api-version": "2023-01-01"
   };
 
-  const resp = await axios.post(`${CASHFREE_API_BASE}/orders`, payload, { headers, timeout: 20000 });
+ const resp = await axios.post(`${CASHFREE_API_BASE}/orders`, payload, {
+  headers: {
+    "Content-Type": "application/json",
+    "x-client-id": CASHFREE_APP_ID,
+    "x-client-secret": CASHFREE_SECRET,
+    "x-api-version": "2023-08-01"   // 👈 यह लाइन जोड़नी है
+  }
+});
+
   return resp.data;
 }
 
